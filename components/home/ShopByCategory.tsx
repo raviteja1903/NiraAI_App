@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   ImageBackground,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 const categories = [
@@ -31,8 +31,6 @@ const categories = [
 export default function ShopByCategory() {
   return (
     <View style={styles.container}>
-      
-
       <View style={styles.row}>
         {categories.map((item) => (
           <TouchableOpacity

@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-/* ================= TYPES ================= */
+
 
 type Message = {
   id: string;
@@ -24,7 +24,6 @@ type Message = {
   time: string;
 };
 
-/* ================= COMPONENT ================= */
 
 export default function ChatScreen() {
   const [text, setText] = useState("");
@@ -38,13 +37,11 @@ export default function ChatScreen() {
       time: "10:41 AM",
     },
   ]);
-
-  /* AUTO SCROLL */
+ 
   useEffect(() => {
     flatListRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
-
-  /* SEND TEXT MESSAGE */
+ 
   const sendMessage = () => {
     if (!text.trim()) return;
 
@@ -61,8 +58,7 @@ export default function ChatScreen() {
     setMessages((prev) => [...prev, newMessage]);
     setText("");
   };
-
-  /* PICK IMAGE FROM GALLERY */
+ 
   const pickImage = async () => {
     const permission =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -87,8 +83,7 @@ export default function ChatScreen() {
       setMessages((prev) => [...prev, newMessage]);
     }
   };
-
-  /* RENDER MESSAGE */
+ 
   const renderItem = ({ item }: { item: Message }) => (
     <View
       style={[
@@ -163,8 +158,7 @@ export default function ChatScreen() {
               <Ionicons name="image-outline" size={20} color="#666" />
             </TouchableOpacity>
           </View>
-
-          {/* INPUT */}
+ 
           <TextInput
             placeholder="Type a message"
             value={text}
@@ -172,8 +166,7 @@ export default function ChatScreen() {
             style={styles.input}
             placeholderTextColor="#999"
           />
-
-          {/* SEND */}
+ 
           <TouchableOpacity style={styles.sendBtn} onPress={sendMessage}>
             <Ionicons name="send" size={18} color="#FFF" />
           </TouchableOpacity>
@@ -182,8 +175,7 @@ export default function ChatScreen() {
     </SafeAreaView>
   );
 }
-
-/* ================= STYLES ================= */
+ 
 
 const styles = StyleSheet.create({
   safe: {

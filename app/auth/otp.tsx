@@ -72,7 +72,7 @@
 //     borderRadius: 14,
 //     paddingHorizontal: 16,
 //     fontSize: 18,
-//     letterSpacing: 6,          // OTP style spacing
+//     letterSpacing: 6,          
 //     textAlign: "center",
 //     backgroundColor: "#FAFAFA",
 //     marginBottom: 8,

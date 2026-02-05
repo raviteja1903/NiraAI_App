@@ -46,8 +46,7 @@ export default function OnboardingScreen() {
               /> */}
               <Text style={styles.aiText}>AI-Powered</Text>
             </View>
-
-            {/* Subtitle */}
+ 
             <Text style={styles.subtitle}>Skincare Journey</Text>
 
             <BlurView

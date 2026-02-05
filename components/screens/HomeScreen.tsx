@@ -1,6 +1,5 @@
 import React from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-
 import Header from "../home/Header";
 import AICard from "../home/AICard";
 import ProductList from "../home/ProductList";
@@ -22,14 +21,13 @@ export default function HomeScreen() {
       >
         <ShopByCategory />
         <AICard />
+        <DoctorReferences />
         <ProductList />
         <SkinInsightsSection />
-        <DoctorReferences />
+        
         <ShopByConcern />
         <HydrationSection />
       </ScrollView>
-
-   
       <BottomNav />
     </View>
   );
@@ -42,6 +40,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 16,
-    paddingBottom: 3,  
+    paddingBottom: 3,
   },
 });
