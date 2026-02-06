@@ -90,7 +90,7 @@ export default function HydrationCard() {
                 activeOpacity={0.85}
                 onPress={() => handleAddToCart(item)}
               >
-                <Text style={styles.ctaText}>Add to cart</Text>
+                <Text style={styles.ctaText}>Add to car</Text>
               </TouchableOpacity>
             </View>
           </View>
