@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 24,
     paddingHorizontal: 16,
-      marginBottom: 80,
+      // marginBottom: 80,
   },
 
   heading: {

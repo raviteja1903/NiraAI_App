@@ -1,14 +1,15 @@
 import React from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
-import Header from "../home/Header";
+import { ScrollView, StyleSheet, View } from "react-native";
 import AICard from "../home/AICard";
-import ProductList from "../home/ProductList";
 import BottomNav from "../home/BottomNav";
-import ShopByCategory from "../home/ShopByCategory";
-import SkinInsightsSection from "../home/SkinInsightsSection";
-import ShopByConcern from "../home/ShopByConcern";
+import DecentralizationSection from "../home/DecentralizationSection";
 import DoctorReferences from "../home/DoctorReferences";
+import Header from "../home/Header";
 import HydrationSection from "../home/HydrationSection";
+import ProductList from "../home/ProductList";
+import ShopByCategory from "../home/ShopByCategory";
+import ShopByConcern from "../home/ShopByConcern";
+import SkinInsightsSection from "../home/SkinInsightsSection";
 
 export default function HomeScreen() {
   return (
@@ -21,12 +22,16 @@ export default function HomeScreen() {
       >
         <ShopByCategory />
         <AICard />
+        <DecentralizationSection />
+        <View style={{ marginTop: 24 }}>
+          <SkinInsightsSection />
+        </View>
+
         <DoctorReferences />
-        <ProductList />
-        <SkinInsightsSection />
-        
+
         <ShopByConcern />
         <HydrationSection />
+        <ProductList />
       </ScrollView>
       <BottomNav />
     </View>

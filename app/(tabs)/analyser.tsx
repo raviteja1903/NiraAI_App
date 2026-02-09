@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   FlatList,
@@ -14,8 +15,6 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
-
 type Message = {
   id: string;
   text?: string;
@@ -24,8 +23,8 @@ type Message = {
   time: string;
 };
 
-
 export default function ChatScreen() {
+  const router = useRouter();
   const [text, setText] = useState("");
   const flatListRef = useRef<FlatList>(null);
 
@@ -37,11 +36,11 @@ export default function ChatScreen() {
       time: "10:41 AM",
     },
   ]);
- 
+
   useEffect(() => {
     flatListRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
- 
+
   const sendMessage = () => {
     if (!text.trim()) return;
 
@@ -58,10 +57,9 @@ export default function ChatScreen() {
     setMessages((prev) => [...prev, newMessage]);
     setText("");
   };
- 
+
   const pickImage = async () => {
-    const permission =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) return;
 
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -83,7 +81,7 @@ export default function ChatScreen() {
       setMessages((prev) => [...prev, newMessage]);
     }
   };
- 
+
   const renderItem = ({ item }: { item: Message }) => (
     <View
       style={[
@@ -93,7 +91,7 @@ export default function ChatScreen() {
     >
       {item.sender === "bot" && (
         <Image
-          source={require("../../assets/images/nira_logo.png")}
+          source={require("../../assets/images/nira-appLOGO.png")}
           style={styles.avatar}
         />
       )}
@@ -131,7 +129,17 @@ export default function ChatScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 70 : 0}
       >
-      
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="arrow-back" size={24} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Chat</Text>
+          <View style={styles.headerSpacer} />
+        </View>
+
         <FlatList
           ref={flatListRef}
           data={messages}
@@ -142,9 +150,7 @@ export default function ChatScreen() {
           keyboardShouldPersistTaps="handled"
         />
 
-        {/* INPUT BAR */}
         <View style={styles.inputBar}>
-          {/* LEFT ICONS */}
           <View style={styles.leftIcons}>
             <TouchableOpacity style={styles.iconBtn}>
               <Ionicons name="mic-outline" size={20} color="#666" />
@@ -158,7 +164,7 @@ export default function ChatScreen() {
               <Ionicons name="image-outline" size={20} color="#666" />
             </TouchableOpacity>
           </View>
- 
+
           <TextInput
             placeholder="Type a message"
             value={text}
@@ -166,7 +172,7 @@ export default function ChatScreen() {
             style={styles.input}
             placeholderTextColor="#999"
           />
- 
+
           <TouchableOpacity style={styles.sendBtn} onPress={sendMessage}>
             <Ionicons name="send" size={18} color="#FFF" />
           </TouchableOpacity>
@@ -175,7 +181,6 @@ export default function ChatScreen() {
     </SafeAreaView>
   );
 }
- 
 
 const styles = StyleSheet.create({
   safe: {
@@ -185,6 +190,36 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+  },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEE",
+  },
+
+  backBtn: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#000",
+    flex: 1,
+    textAlign: "center",
+  },
+
+  headerSpacer: {
+    width: 40,
   },
 
   chat: {
@@ -208,8 +243,8 @@ const styles = StyleSheet.create({
   },
 
   avatar: {
-    width: 28,
-    height: 28,
+    width:40,
+    height: 40,
     borderRadius: 14,
     marginRight: 8,
   },

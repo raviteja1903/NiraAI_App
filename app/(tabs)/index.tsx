@@ -1,4 +1,5 @@
 import { BlurView } from "expo-blur";
+import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useRouter } from "expo-router";
 
@@ -24,7 +25,7 @@ export default function OnboardingScreen() {
 
        
         <ImageBackground
-          source={require("../../assets/images/image.png")}
+          source={require("../../assets/images/homepage.jpeg")}
           style={styles.image}
         >
        
@@ -40,10 +41,10 @@ export default function OnboardingScreen() {
 
             {/* AI Powered Row */}
             <View style={styles.aiRow}>
-              {/* <Image
-                source={require("../../assets/images/eye.png")}
+              <Image
+                source={require("../../assets/images/nira-appLOGO.png")}
                 style={styles.eyeIcon}
-              /> */}
+              />
               <Text style={styles.aiText}>AI-Powered</Text>
             </View>
  

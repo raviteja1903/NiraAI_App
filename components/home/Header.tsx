@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Header() {
   const { width } = useWindowDimensions();
 
-  const logoWidth = width * 0.15;
+  const logoWidth = width * 0.22;
   const logoHeight = Math.min(width * 0.29, 55);  
 
   return (
@@ -20,8 +20,8 @@ export default function Header() {
       <View style={styles.container}>
         {/* LOGO ONLY GROWS (HEIGHT CAPPED) */}
         <Image
-          source={require("../../assets/images/nira_logo.png")}
-          resizeMode="contain"
+          source={require("../../assets/images/nira-appLOGO.png")}
+          resizeMode="cover"
           style={{
             width: logoWidth,
             height: logoHeight,

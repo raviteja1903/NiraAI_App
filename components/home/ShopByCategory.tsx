@@ -12,19 +12,19 @@ const categories = [
     id: "1",
     title: "Skin Care",
     image:
-      "https://adewunmi.ca/cdn/shop/articles/Skincare_Without_Hyaluronic_Acid_1200x1200.png?v=1692246940&quot",
+      "https://edwardscosmeceuticals.com.au/wp-content/uploads/2022/09/23Body-copy-page-images-for-product-pages.jpg",
   },
   {
     id: "2",
     title: "Lip Care",
     image:
-      "https://tse4.mm.bing.net/th/id/OIP.Ne1MJzpFhSXAXoIpA8LCBwHaEK?pid=Api&P=0&h=220",
+      "https://www.puresmile.com.au/wp-content/uploads/2023/06/lip-care-1024x536.jpeg",
   },
   {
     id: "3",
     title: "Eye Care",
     image:
-      "https://c8.alamy.com/comp/GJY0PE/eye-test-vision-chart-blurred-effect-GJY0PE.jpg",
+      "https://tse4.mm.bing.net/th/id/OIP._WNnuA4oI5QToAUvv7Wz3gHaE8?pid=Api&h=220&P=0",
   },
 ];
 
@@ -45,7 +45,6 @@ export default function ShopByCategory() {
               imageStyle={styles.circleImage}
             >
               <View style={styles.overlay} />
-              <Text style={styles.circleText}>{item.title}</Text>
             </ImageBackground>
 
             {/* LABEL BELOW */}
@@ -98,15 +97,6 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.35)",
-  },
-
-  circleText: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "700",
-    textAlign: "center",
-    zIndex: 1,
-    paddingHorizontal: 6,
   },
 
   label: {

@@ -8,14 +8,33 @@ import {
 } from "react-native";
 
 type Props = {
+  id: string;
   title: string;
   desc: string;
   image: string;
+  isWishlisted: boolean;
+  onToggleWishlist: (id: string) => void;
 };
 
-export default function ProductCard({ title, desc, image }: Props) {
+export default function ProductCard({
+  id,
+  title,
+  desc,
+  image,
+  isWishlisted,
+  onToggleWishlist,
+}: Props) {
   return (
     <View style={styles.card}>
+      {/* Wishlist Heart Icon */}
+      <TouchableOpacity
+        style={styles.heartButton}
+        onPress={() => onToggleWishlist(id)}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.heartIcon}>{isWishlisted ? "❤️" : "🤍"}</Text>
+      </TouchableOpacity>
+
       {/* Image */}
       <Image
         source={{ uri: image }}
@@ -52,6 +71,29 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 10,
+    marginBottom: 100,
+    position: "relative",
+  },
+
+  heartButton: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    zIndex: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 20,
+    width: 36,
+    height: 36,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+
+  heartIcon: {
+    fontSize: 20,
   },
 
   image: {

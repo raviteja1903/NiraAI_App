@@ -1,18 +1,23 @@
+import BottomNav from "@/components/home/BottomNav";
+import Header from "@/components/home/Header";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BitcoinGraphScreen from "./BitcoinGraphScreen";
-import Header from "@/components/home/Header";
-import BottomNav from "@/components/home/BottomNav";
+import BitcoinGraphScreen from "../BitCoin/BitcoinGraphScreen";
+
+type TabType = "tokens" | "staking" | "transactions";
 
 export default function BitcoinRewardsScreen() {
+  const [activeTab, setActiveTab] = useState<TabType>("tokens");
+
   return (
     <>
       <Header />
@@ -24,22 +29,68 @@ export default function BitcoinRewardsScreen() {
         >
           {/* WALLET CARD */}
           <View style={styles.walletCard}>
-            <Ionicons name="logo-bitcoin" size={42} color="#F7931A" />
-            <Text style={styles.balance}>0.00234 BTC</Text>
+            <Image
+              source={require("../../assets/images/BitcoinlogoIMG.png")}
+              style={styles.bitcoinIcon}
+            />
+
+            <Text style={styles.balance}>0.00234 Alphie</Text>
             <Text style={styles.inr}>≈ ₹9,850</Text>
 
-            <TouchableOpacity style={styles.withdrawBtn}>
-              <Text style={styles.withdrawText}>Withdraw</Text>
-            </TouchableOpacity>
+            {/* RECEIVE / SEND */}
+            <View style={styles.actionRow}>
+              <TouchableOpacity style={styles.actionBtn}>
+                <Ionicons name="arrow-down" size={18} color="#F7C948" />
+                <Text style={styles.actionText}>Receive</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.actionBtn}>
+                <Ionicons name="arrow-up" size={18} color="#F7C948" />
+                <Text style={styles.actionText}>Send</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
-          {/* INFO */}
-          <View style={styles.infoBox}>
-            <Ionicons name="gift-outline" size={20} color="#E91E63" />
-            <Text style={styles.infoText}>
-              Earn Bitcoin on every product order with Nira AI
-            </Text>
+          {/* TABS */}
+          <View style={styles.tabsRow}>
+            {[
+              { key: "tokens", label: "Tokens" },
+              { key: "staking", label: "Staking" },
+              { key: "transactions", label: "Transactions" },
+            ].map((tab) => (
+              <TouchableOpacity
+                key={tab.key}
+                style={styles.tabItem}
+                onPress={() => setActiveTab(tab.key as TabType)}
+              >
+                <Text
+                  style={[
+                    styles.tabText,
+                    activeTab === tab.key && styles.activeTabText,
+                  ]}
+                >
+                  {tab.label}
+                </Text>
+
+                {activeTab === tab.key && (
+                  <View style={styles.activeUnderline} />
+                )}
+              </TouchableOpacity>
+            ))}
           </View>
+
+          {/* TAB CONTENT */}
+          {activeTab === "tokens" && (
+            <Text style={styles.emptyText}>No tokens available</Text>
+          )}
+
+          {activeTab === "staking" && (
+            <Text style={styles.emptyText}>Staking coming soon 🚀</Text>
+          )}
+
+          {activeTab === "transactions" && (
+            <Text style={styles.emptyText}>No transactions yet</Text>
+          )}
 
           {/* GRAPH */}
           <BitcoinGraphScreen />
@@ -52,65 +103,110 @@ export default function BitcoinRewardsScreen() {
 }
 
 const styles = StyleSheet.create({
+  /* SCREEN */
   safe: {
     flex: 1,
     backgroundColor: "#F5F6FA",
   },
 
   scrollContent: {
-    padding: 12,
-    paddingBottom: 80,
+    padding: 14,
+    paddingBottom: 90,
   },
 
+  /* WALLET CARD */
   walletCard: {
-    backgroundColor: "#000",
-    borderRadius: 18,
-    paddingVertical: 24,
+    backgroundColor: "#000000", // 🖤 black
+    borderRadius: 20,
+    paddingVertical: 26,
     paddingHorizontal: 20,
     alignItems: "center",
-    marginBottom: 16,
+    marginBottom: 20,
+
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 10,
+  },
+
+  bitcoinIcon: {
+    width: 100,
+    height: 100,
+    resizeMode: "cover",
+    marginBottom: 10,
   },
 
   balance: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#FFF",
-    marginTop: 10,
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#FFFFFF", // ✅ white text for black bg
+    marginTop: 6,
   },
 
   inr: {
     fontSize: 14,
-    color: "#AAA",
-    marginBottom: 14,
+    color: "#B5B5B5", // ✅ soft gray
+    marginBottom: 18,
   },
 
-  withdrawBtn: {
-    backgroundColor: "#F7931A",
-    paddingVertical: 10,
-    paddingHorizontal: 28,
-    borderRadius: 22,
+  /* ACTION BUTTONS */
+  actionRow: {
+    flexDirection: "row",
+    gap: 14,
   },
 
-  withdrawText: {
-    color: "#000",
-    fontWeight: "700",
-    fontSize: 14,
-  },
-
-  infoBox: {
+  actionBtn: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFF",
-    padding: 14,
+    borderWidth: 1.5,
+    borderColor: "#F7C948", // 🟡 yellow
+    backgroundColor: "rgba(247,201,72,0.12)", // subtle yellow tint
+    paddingVertical: 10,
+    paddingHorizontal: 26,
     borderRadius: 14,
-    marginBottom: 20,
   },
 
-  infoText: {
-    marginLeft: 10,
+  actionText: {
+    color: "#F7C948", // 🟡 yellow text
+    fontWeight: "700",
+    marginLeft: 8,
+  },
+
+  /* TABS */
+  tabsRow: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 22,
+  },
+
+  tabItem: {
+    alignItems: "center",
+  },
+
+  tabText: {
+    fontSize: 14,
+    color: "#999",
+    fontWeight: "600",
+  },
+
+  activeTabText: {
+    color: "black",
+  },
+
+  activeUnderline: {
+    width: 26,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: "black",
+    marginTop: 6,
+  },
+
+  /* EMPTY TEXT */
+  emptyText: {
+    textAlign: "center",
+    color: "#777",
+    marginVertical: 16,
     fontSize: 13,
-    color: "#333",
-    flex: 1,
-    lineHeight: 18,
   },
 });

@@ -26,10 +26,9 @@ export default function AICard() {
       </View>
 
       <Image
-        source={{
-          uri: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
-        }}
+        source={require("../../assets/images/SkinAI.jpeg")}
         style={styles.image}
+        resizeMode="contain"
       />
     </View>
   );
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#6F6F6F",
     marginVertical: 6,
+    lineHeight: 16,
   },
   btn: {
     flexDirection: "row",
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 18,
     gap: 6,
+    marginTop: 4,
   },
   btnText: {
     fontSize: 12,
@@ -73,5 +74,6 @@ const styles = StyleSheet.create({
     height: 125,
     borderRadius: 16,
     marginLeft: 10,
+    resizeMode: "contain",
   },
 });

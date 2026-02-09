@@ -26,11 +26,14 @@ export default function ProfileScreen() {
           <Text style={styles.email}>johndoe@example.com</Text>
         </View>
 
-        {/* BTC BALANCE BOX */}
         <View style={styles.balanceBox}>
-          <Ionicons name="logo-bitcoin" size={30} color="#F7931A" />
+          <Image
+            source={require("../../assets/images/BitcoinlogoIMG.png")}
+            style={styles.bitcoinIcon}
+          />
+
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.balanceLabel}>BTC Rewards</Text>
+            <Text style={styles.balanceLabel}>Alphie Rewards</Text>
             <Text style={styles.balanceValue}>0.00568 BTC</Text>
           </View>
         </View>
@@ -39,7 +42,6 @@ export default function ProfileScreen() {
           <Text style={styles.editText}>Edit Profile</Text>
         </TouchableOpacity>
 
-        {/* OPTIONS */}
         <View style={styles.options}>
           <TouchableOpacity style={styles.optionBtn}>
             <Ionicons name="settings-outline" size={20} color="#000" />
@@ -52,10 +54,26 @@ export default function ProfileScreen() {
             <Text style={styles.optionText}>Wallet & Rewards</Text>
             <Ionicons name="chevron-forward-outline" size={18} color="#999" />
           </TouchableOpacity>
- 
+
+          {/* 🆕 ENCRYPTION */}
+          <TouchableOpacity style={styles.optionBtn}>
+            <Ionicons name="lock-closed-outline" size={20} color="#000" />
+            <Text style={styles.optionText}>Encryption</Text>
+            <Ionicons name="chevron-forward-outline" size={18} color="#999" />
+          </TouchableOpacity>
+
+          {/* 🆕 REFER A FRIEND */}
+          <TouchableOpacity style={styles.optionBtn}>
+            <Ionicons name="people-outline" size={20} color="#000" />
+            <Text style={styles.optionText}>Refer a Friend</Text>
+            <Ionicons name="chevron-forward-outline" size={18} color="#999" />
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.optionBtn}
-            onPress={() => router.push("/doctor-consultation/appointmenthistory")}
+            onPress={() =>
+              router.push("/doctor-consultation/appointmenthistory")
+            }
           >
             <Ionicons name="time-outline" size={20} color="#000" />
             <Text style={styles.optionText}>Appointment History</Text>
@@ -81,7 +99,6 @@ export default function ProfileScreen() {
     </>
   );
 }
-
 
 const styles = StyleSheet.create({
   safe: {
@@ -111,6 +128,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: "#ddd",
   },
+bitcoinIcon: {
+  width: 50,
+  height: 50,
+  resizeMode: "contain",
+},
 
   name: {
     fontSize: 20,

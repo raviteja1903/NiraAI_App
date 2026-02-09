@@ -1,185 +1,297 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
   Animated,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter, usePathname } from "expo-router";
 
 const tabs = [
-  {
-    key: "index",
-    label: "Home",
-    icon: "home",
-    route: "/(tabs)/home" as const,
-  },
-  {
-    key: "collections",
-    label: "categories",
-    icon: "apps",
-    route: "/(tabs)/collections" as const,
-  },
-  {
-    key: "analyser",
-    label: "Skin Analyser",
-    icon: "sparkles",
-    route: "/(tabs)/analyser" as const,
-  },
-  {
-    key: "mcash",
-    label: "Mcash",
-    icon: "medal-outline",
-    route: "/(tabs)/mcash" as const,
-  },
-  {
-    key: "account",
-    label: "Account",
-    icon: "person-outline",
-    route: "/(tabs)/profileaccount" as const,
-  },
-] as const;
+  { key: "home", label: "Home", icon: "home-outline", activeIcon: "home", route: "/(tabs)/home", match: "home" },
+  { key: "categories", label: "Categories", icon: "grid-outline", activeIcon: "grid", route: "/(tabs)/collections", match: "collections" },
+  { key: "analyser", label: "Analyser", icon: "sparkles-outline", activeIcon: "sparkles", route: "/(tabs)/analyser", match: "analyser" },
+  { key: "tokens", label: "Tokens", icon: "wallet-outline", activeIcon: "wallet", route: "/(tabs)/mcash", match: "mcash" },
+  { key: "account", label: "Account", icon: "person-outline", activeIcon: "person", route: "/(tabs)/profileaccount", match: "profileaccount" },
+];
 
 export default function BottomNav() {
   const router = useRouter();
   const pathname = usePathname();
- 
-  const bgOpacity = useRef(new Animated.Value(0)).current;
+  const [activeKey, setActiveKey] = useState("home");
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const navOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(bgOpacity, {
-      toValue: 0.25,
-      duration: 200,
+    // Initial mount animation
+    Animated.timing(navOpacity, {
+      toValue: 1,
+      duration: 400,
       useNativeDriver: true,
     }).start();
+  }, []);
+
+  useEffect(() => {
+    const found = tabs.find((t) => pathname.includes(t.match));
+    if (found) {
+      setActiveKey(found.key);
+      const index = tabs.findIndex((t) => t.key === found.key);
+      
+      // Animate indicator slide
+      Animated.spring(slideAnim, {
+        toValue: index,
+        useNativeDriver: true,
+        friction: 8,
+        tension: 100,
+      }).start();
+    }
   }, [pathname]);
 
+  const handlePress = (tab: (typeof tabs)[number]) => {
+    setActiveKey(tab.key);
+    router.push(tab.route as any);
+  };
+
   return (
-    <View style={styles.wrapper}>
- 
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          styles.backdrop,
-          { opacity: bgOpacity },
-        ]}
-      />
-
+    <Animated.View style={[styles.wrapper, { opacity: navOpacity }]}>
       <View style={styles.nav}>
-        {tabs.map((item) => {
-          const isActive = pathname === item.route;
+        {/* Animated sliding indicator */}
+        <Animated.View
+          style={[
+            styles.activeIndicator,
+            {
+              transform: [
+                {
+                  translateX: slideAnim.interpolate({
+                    inputRange: tabs.map((_, i) => i),
+                    outputRange: tabs.map((_, i) => i * (100 / tabs.length) + '%'),
+                  }),
+                },
+              ],
+              width: `${100 / tabs.length}%`,
+            },
+          ]}
+        >
+          <View style={styles.indicatorDot} />
+        </Animated.View>
 
-          return (
-            <AnimatedTab
-              key={item.key}
-              item={item}
-              isActive={isActive}
-              onPress={() => router.push(item.route)}
-            />
-          );
-        })}
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.key}
+            tab={tab}
+            isActive={activeKey === tab.key}
+            onPress={() => handlePress(tab)}
+          />
+        ))}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
-function AnimatedTab({
-  item,
+function Tab({
+  tab,
   isActive,
   onPress,
 }: {
-  item: (typeof tabs)[number];
+  tab: (typeof tabs)[number];
   isActive: boolean;
   onPress: () => void;
 }) {
   const scale = useRef(new Animated.Value(1)).current;
-  const translateY = useRef(new Animated.Value(0)).current;
+  const dotScale = useRef(new Animated.Value(0)).current;
+  const iconRotate = useRef(new Animated.Value(0)).current;
+  const labelOpacity = useRef(new Animated.Value(0.6)).current;
+  const iconTranslateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
+      // Scale animation for the whole tab
       Animated.spring(scale, {
-        toValue: isActive ? 1.15 : 1,
-        friction: 5,
+        toValue: isActive ? 1.05 : 1,
         useNativeDriver: true,
+        friction: 7,
+        tension: 100,
       }),
-      Animated.spring(translateY, {
-        toValue: isActive ? -6 : 0, 
+      // Circle background animation
+      Animated.spring(dotScale, {
+        toValue: isActive ? 1 : 0,
+        useNativeDriver: true,
         friction: 6,
+        tension: 120,
+      }),
+      // Icon rotation animation
+      Animated.spring(iconRotate, {
+        toValue: isActive ? 1 : 0,
+        useNativeDriver: true,
+        friction: 8,
+        tension: 80,
+      }),
+      // Label fade animation
+      Animated.timing(labelOpacity, {
+        toValue: isActive ? 1 : 0.6,
+        duration: 200,
         useNativeDriver: true,
       }),
+      // Icon bounce animation
+      Animated.sequence([
+        Animated.spring(iconTranslateY, {
+          toValue: isActive ? -3 : 0,
+          useNativeDriver: true,
+          friction: 5,
+          tension: 100,
+        }),
+        Animated.spring(iconTranslateY, {
+          toValue: 0,
+          useNativeDriver: true,
+          friction: 7,
+          tension: 100,
+        }),
+      ]),
     ]).start();
   }, [isActive]);
 
+  const handlePress = () => {
+    // Press animation
+    Animated.sequence([
+      Animated.timing(scale, {
+        toValue: 0.9,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.spring(scale, {
+        toValue: isActive ? 1.05 : 1,
+        useNativeDriver: true,
+        friction: 7,
+        tension: 100,
+      }),
+    ]).start();
+
+    onPress();
+  };
+
+  const rotateInterpolate = iconRotate.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+
   return (
-    <TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
+    <TouchableOpacity
+      onPress={handlePress}
+      activeOpacity={0.8}
+      style={styles.tabTouchable}
+    >
       <Animated.View
         style={[
-          styles.tab,
-          isActive && styles.activeTab,
-          {
-            transform: [{ scale }, { translateY }],
-          },
+          styles.tabContainer,
+          { transform: [{ scale }] },
         ]}
       >
-        <Ionicons
-          name={item.icon as any}
-          size={20}
-          color={isActive ? "#FFFFFF" : "#000000"}
-        />
-        <Text style={[styles.label, isActive && styles.activeLabel]}>
-          {item.label}
-        </Text>
+        {/* Circle behind icon */}
+        <Animated.View
+          style={[
+            styles.iconWrapper,
+            { transform: [{ translateY: iconTranslateY }] },
+          ]}
+        >
+          <Animated.View
+            style={[
+              styles.circle,
+              { transform: [{ scale: dotScale }] },
+            ]}
+          />
+          <Animated.View
+            style={{
+              transform: [{ rotate: rotateInterpolate }],
+            }}
+          >
+            <Ionicons
+              name={(isActive ? tab.activeIcon : tab.icon) as any}
+              size={20}
+              color={isActive ? "#FFFFFF" : "#999999"}
+            />
+          </Animated.View>
+        </Animated.View>
+
+        <Animated.Text
+          style={[
+            styles.tabLabel,
+            isActive && styles.tabLabelActive,
+            { opacity: labelOpacity },
+          ]}
+          numberOfLines={1}
+        >
+          {tab.label}
+        </Animated.Text>
       </Animated.View>
     </TouchableOpacity>
   );
 }
+
 const styles = StyleSheet.create({
   wrapper: {
     position: "absolute",
-    bottom: 20,
-    left: 16,
-    right: 16,
-    alignItems: "center",
+    bottom: Platform.OS === "ios" ? 28 : 16,
+    left: 12,
+    right: 12,
   },
-
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "#000",
-    borderRadius: 30,
-  },
-
   nav: {
     flexDirection: "row",
-    backgroundColor: "#F2F2F2",
-    borderRadius: 30,
-    paddingVertical: 10,
-    paddingHorizontal: 6,
-    gap: 6,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 28,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 16,
     elevation: 10,
+    position: "relative",
   },
-
-  tab: {
+  activeIndicator: {
+    position: "absolute",
+    bottom: 4,
+    height: 3,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 6,
-    borderRadius: 18,
   },
-
-  activeTab: {
-    backgroundColor: "#000000",
+  indicatorDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: "#111111",
   },
-
-  label: {
-    marginTop: 2,
+  tabTouchable: {
+    flex: 1,
+  },
+  tabContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 4,
+  },
+  iconWrapper: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  circle: {
+    position: "absolute",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#111111",
+  },
+  tabLabel: {
     fontSize: 10,
-    color: "#000000",
+    marginTop: 2,
+    color: "#999999",
     fontWeight: "500",
   },
-
-  activeLabel: {
-    color: "#FFFFFF",
-    fontWeight: "600",
+  tabLabelActive: {
+    color: "#111111",
+    fontWeight: "700",
   },
 });
