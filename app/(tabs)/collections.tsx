@@ -121,7 +121,7 @@ export default function SkincareScreen() {
  
         <View style={styles.section}>
           <ImageBackground
-            source={require("../../assets/images/SkinCareIMG2.png")}
+            source={require("../../assets/images/BackgroundImg.png")}
             style={styles.sectionBg}
             imageStyle={styles.sectionBgImage}
           >
