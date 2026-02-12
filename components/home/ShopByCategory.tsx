@@ -6,29 +6,42 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useRouter, Href } from "expo-router";
 
-const categories = [
+type Category = {
+  id: string;
+  title: string;
+  image: string;
+  route: Href;
+};
+
+const categories: Category[] = [
   {
     id: "1",
     title: "Skin Care",
+    route: "/skin-care",
     image:
       "https://edwardscosmeceuticals.com.au/wp-content/uploads/2022/09/23Body-copy-page-images-for-product-pages.jpg",
   },
   {
     id: "2",
     title: "Lip Care",
+    route: "/lip-care",
     image:
       "https://www.puresmile.com.au/wp-content/uploads/2023/06/lip-care-1024x536.jpeg",
   },
   {
     id: "3",
     title: "Eye Care",
+    route: "/eye-care",
     image:
-      "https://tse4.mm.bing.net/th/id/OIP._WNnuA4oI5QToAUvv7Wz3gHaE8?pid=Api&h=220&P=0",
+      "https://tse4.mm.bing.net/th/id/OIP._WNnuA4oI5QToAUvv7Wz3gHaE8?pid=Api",
   },
 ];
 
 export default function ShopByCategory() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -37,8 +50,9 @@ export default function ShopByCategory() {
             key={item.id}
             activeOpacity={0.85}
             style={styles.item}
+            onPress={() => router.push(item.route)}
           >
-            {/* CIRCLE IMAGE */}
+            {/* Circle Image */}
             <ImageBackground
               source={{ uri: item.image }}
               style={styles.circle}
@@ -47,7 +61,7 @@ export default function ShopByCategory() {
               <View style={styles.overlay} />
             </ImageBackground>
 
-            {/* LABEL BELOW */}
+            {/* Label */}
             <Text style={styles.label}>{item.title}</Text>
           </TouchableOpacity>
         ))}
@@ -55,20 +69,13 @@ export default function ShopByCategory() {
     </View>
   );
 }
+
 const CIRCLE_SIZE = 100;
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 28,
     paddingHorizontal: 10,
-  },
-
-  heading: {
-    fontSize: 22,
-    fontWeight: "700",
-    textAlign: "center",
-    marginBottom: 20,
-    color: "#222",
   },
 
   row: {
@@ -85,8 +92,6 @@ const styles = StyleSheet.create({
     width: CIRCLE_SIZE,
     height: CIRCLE_SIZE,
     borderRadius: CIRCLE_SIZE / 2,
-    justifyContent: "center",
-    alignItems: "center",
     overflow: "hidden",
   },
 

@@ -1,17 +1,15 @@
+import { Ionicons } from "@expo/vector-icons";
+import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
+  Image,
   StyleSheet,
+  Text,
   TextInput,
   TouchableOpacity,
-  Image,
+  View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import * as Location from "expo-location";
-import { Ionicons } from "@expo/vector-icons";
-
-/* ---------------- DUMMY DOCTORS ---------------- */
 
 const doctors = [
   {
@@ -30,24 +28,20 @@ const doctors = [
   },
 ];
 
-/* ---------------- COMPONENT ---------------- */
-
 export default function FindDoctorsMapScreen() {
   const [location, setLocation] = useState<any>(null);
   const [selectedDoctor, setSelectedDoctor] = useState<any>(null);
 
   useEffect(() => {
     (async () => {
-      const { status } =
-        await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
         alert("Location permission denied");
         return;
       }
 
-      const currentLocation =
-        await Location.getCurrentPositionAsync({});
+      const currentLocation = await Location.getCurrentPositionAsync({});
 
       setLocation(currentLocation.coords);
     })();
@@ -59,7 +53,6 @@ export default function FindDoctorsMapScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* SEARCH BOX */}
       <View style={styles.searchBox}>
         <Ionicons name="search-outline" size={20} color="#777" />
         <TextInput
@@ -68,7 +61,6 @@ export default function FindDoctorsMapScreen() {
         />
       </View>
 
-      {/* MAP */}
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
@@ -92,7 +84,6 @@ export default function FindDoctorsMapScreen() {
         ))}
       </MapView>
 
-      {/* DOCTOR CARD */}
       {selectedDoctor && (
         <View style={styles.card}>
           <Image
@@ -104,9 +95,7 @@ export default function FindDoctorsMapScreen() {
 
           <View style={{ flex: 1 }}>
             <Text style={styles.name}>{selectedDoctor.name}</Text>
-            <Text style={styles.specialty}>
-              {selectedDoctor.specialty}
-            </Text>
+            <Text style={styles.specialty}>{selectedDoctor.specialty}</Text>
           </View>
 
           <TouchableOpacity style={styles.chatBtn}>
@@ -121,8 +110,6 @@ export default function FindDoctorsMapScreen() {
     </View>
   );
 }
-
-/* ---------------- STYLES ---------------- */
 
 const styles = StyleSheet.create({
   searchBox: {

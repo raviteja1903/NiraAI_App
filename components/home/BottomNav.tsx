@@ -1,21 +1,55 @@
+import { Ionicons } from "@expo/vector-icons";
+import { usePathname, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
   Animated,
   Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter, usePathname } from "expo-router";
 
 const tabs = [
-  { key: "home", label: "Home", icon: "home-outline", activeIcon: "home", route: "/(tabs)/home", match: "home" },
-  { key: "categories", label: "Categories", icon: "grid-outline", activeIcon: "grid", route: "/(tabs)/collections", match: "collections" },
-  { key: "analyser", label: "Analyser", icon: "sparkles-outline", activeIcon: "sparkles", route: "/(tabs)/analyser", match: "analyser" },
-  { key: "tokens", label: "Tokens", icon: "wallet-outline", activeIcon: "wallet", route: "/(tabs)/mcash", match: "mcash" },
-  { key: "account", label: "Account", icon: "person-outline", activeIcon: "person", route: "/(tabs)/profileaccount", match: "profileaccount" },
+  {
+    key: "home",
+    label: "Home",
+    icon: "home-outline",
+    activeIcon: "home",
+    route: "/(tabs)/home",
+    match: "home",
+  },
+  {
+    key: "categories",
+    label: "Categories",
+    icon: "grid-outline",
+    activeIcon: "grid",
+    route: "/(tabs)/collections",
+    match: "collections",
+  },
+  {
+    key: "analyser",
+    label: "Analyser",
+    icon: "sparkles-outline",
+    activeIcon: "sparkles",
+    route: "/(tabs)/analyser",
+    match: "analyser",
+  },
+  {
+    key: "tokens",
+    label: "Tokens",
+    icon: "wallet-outline",
+    activeIcon: "wallet",
+    route: "/(tabs)/mcash",
+    match: "mcash",
+  },
+  {
+    key: "account",
+    label: "Account",
+    icon: "person-outline",
+    activeIcon: "person",
+    route: "/(tabs)/profileaccount",
+    match: "profileaccount",
+  },
 ];
 
 export default function BottomNav() {
@@ -39,7 +73,7 @@ export default function BottomNav() {
     if (found) {
       setActiveKey(found.key);
       const index = tabs.findIndex((t) => t.key === found.key);
-      
+
       // Animate indicator slide
       Animated.spring(slideAnim, {
         toValue: index,
@@ -67,7 +101,9 @@ export default function BottomNav() {
                 {
                   translateX: slideAnim.interpolate({
                     inputRange: tabs.map((_, i) => i),
-                    outputRange: tabs.map((_, i) => i * (100 / tabs.length) + '%'),
+                    outputRange: tabs.map(
+                      (_, i) => i * (100 / tabs.length) + "%",
+                    ),
                   }),
                 },
               ],
@@ -108,34 +144,33 @@ function Tab({
 
   useEffect(() => {
     Animated.parallel([
-      // Scale animation for the whole tab
       Animated.spring(scale, {
         toValue: isActive ? 1.05 : 1,
         useNativeDriver: true,
         friction: 7,
         tension: 100,
       }),
-      // Circle background animation
+
       Animated.spring(dotScale, {
         toValue: isActive ? 1 : 0,
         useNativeDriver: true,
         friction: 6,
         tension: 120,
       }),
-      // Icon rotation animation
+
       Animated.spring(iconRotate, {
         toValue: isActive ? 1 : 0,
         useNativeDriver: true,
         friction: 8,
         tension: 80,
       }),
-      // Label fade animation
+
       Animated.timing(labelOpacity, {
         toValue: isActive ? 1 : 0.6,
         duration: 200,
         useNativeDriver: true,
       }),
-      // Icon bounce animation
+
       Animated.sequence([
         Animated.spring(iconTranslateY, {
           toValue: isActive ? -3 : 0,
@@ -154,7 +189,6 @@ function Tab({
   }, [isActive]);
 
   const handlePress = () => {
-    // Press animation
     Animated.sequence([
       Animated.timing(scale, {
         toValue: 0.9,
@@ -174,7 +208,7 @@ function Tab({
 
   const rotateInterpolate = iconRotate.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
+    outputRange: ["0deg", "360deg"],
   });
 
   return (
@@ -183,13 +217,7 @@ function Tab({
       activeOpacity={0.8}
       style={styles.tabTouchable}
     >
-      <Animated.View
-        style={[
-          styles.tabContainer,
-          { transform: [{ scale }] },
-        ]}
-      >
-        {/* Circle behind icon */}
+      <Animated.View style={[styles.tabContainer, { transform: [{ scale }] }]}>
         <Animated.View
           style={[
             styles.iconWrapper,
@@ -197,10 +225,7 @@ function Tab({
           ]}
         >
           <Animated.View
-            style={[
-              styles.circle,
-              { transform: [{ scale: dotScale }] },
-            ]}
+            style={[styles.circle, { transform: [{ scale: dotScale }] }]}
           />
           <Animated.View
             style={{

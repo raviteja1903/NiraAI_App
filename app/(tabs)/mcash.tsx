@@ -27,7 +27,7 @@ export default function BitcoinRewardsScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
         >
-          {/* WALLET CARD */}
+        
           <View style={styles.walletCard}>
             <Image
               source={require("../../assets/images/BitcoinlogoIMG.png")}
@@ -37,7 +37,7 @@ export default function BitcoinRewardsScreen() {
             <Text style={styles.balance}>0.00234 Alphie</Text>
             <Text style={styles.inr}>≈ ₹9,850</Text>
 
-            {/* RECEIVE / SEND */}
+          
             <View style={styles.actionRow}>
               <TouchableOpacity style={styles.actionBtn}>
                 <Ionicons name="arrow-down" size={18} color="#F7C948" />
@@ -51,7 +51,7 @@ export default function BitcoinRewardsScreen() {
             </View>
           </View>
 
-          {/* TABS */}
+         
           <View style={styles.tabsRow}>
             {[
               { key: "tokens", label: "Tokens" },
@@ -79,7 +79,7 @@ export default function BitcoinRewardsScreen() {
             ))}
           </View>
 
-          {/* TAB CONTENT */}
+      
           {activeTab === "tokens" && (
             <Text style={styles.emptyText}>No tokens available</Text>
           )}
@@ -92,7 +92,7 @@ export default function BitcoinRewardsScreen() {
             <Text style={styles.emptyText}>No transactions yet</Text>
           )}
 
-          {/* GRAPH */}
+        
           <BitcoinGraphScreen />
         </ScrollView>
       </SafeAreaView>
@@ -103,7 +103,7 @@ export default function BitcoinRewardsScreen() {
 }
 
 const styles = StyleSheet.create({
-  /* SCREEN */
+ 
   safe: {
     flex: 1,
     backgroundColor: "#F5F6FA",
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     paddingBottom: 90,
   },
 
-  /* WALLET CARD */
+  
   walletCard: {
-    backgroundColor: "#000000", // 🖤 black
+    backgroundColor: "#000000",  
     borderRadius: 20,
     paddingVertical: 26,
     paddingHorizontal: 20,
@@ -140,17 +140,17 @@ const styles = StyleSheet.create({
   balance: {
     fontSize: 24,
     fontWeight: "800",
-    color: "#FFFFFF", // ✅ white text for black bg
+    color: "#FFFFFF",  
     marginTop: 6,
   },
 
   inr: {
     fontSize: 14,
-    color: "#B5B5B5", // ✅ soft gray
+    color: "#B5B5B5",  
     marginBottom: 18,
   },
 
-  /* ACTION BUTTONS */
+ 
   actionRow: {
     flexDirection: "row",
     gap: 14,
@@ -160,20 +160,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1.5,
-    borderColor: "#F7C948", // 🟡 yellow
-    backgroundColor: "rgba(247,201,72,0.12)", // subtle yellow tint
+    borderColor: "#F7C948",  
+    backgroundColor: "rgba(247,201,72,0.12)",  
     paddingVertical: 10,
     paddingHorizontal: 26,
     borderRadius: 14,
   },
 
   actionText: {
-    color: "#F7C948", // 🟡 yellow text
+    color: "#F7C948", 
     fontWeight: "700",
     marginLeft: 8,
   },
 
-  /* TABS */
+   
   tabsRow: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 
-  /* EMPTY TEXT */
+  
   emptyText: {
     textAlign: "center",
     color: "#777",

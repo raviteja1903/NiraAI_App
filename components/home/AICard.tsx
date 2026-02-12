@@ -14,7 +14,7 @@ export default function AICard() {
           Quickly analyze your skin, receive personalized skincare insights.
         </Text>
 
-        {/* BUTTON WITH ROUTE */}
+       
         <TouchableOpacity
           style={styles.btn}
           onPress={() => router.push("/skin-analyser/skin-analyser")}

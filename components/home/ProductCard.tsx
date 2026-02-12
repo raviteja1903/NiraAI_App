@@ -8,31 +8,37 @@ import {
 } from "react-native";
 
 type Props = {
-  id: string;
   title: string;
   desc: string;
   image: string;
   isWishlisted: boolean;
-  onToggleWishlist: (id: string) => void;
+  onToggleWishlist: () => void;
+  cartQuantity: number;
+  onAddToCart: () => void;
+  onRemoveFromCart: () => void;
 };
 
 export default function ProductCard({
-  id,
   title,
   desc,
   image,
   isWishlisted,
   onToggleWishlist,
+  cartQuantity,
+  onAddToCart,
+  onRemoveFromCart,
 }: Props) {
   return (
     <View style={styles.card}>
-      {/* Wishlist Heart Icon */}
+      {/* Wishlist Heart */}
       <TouchableOpacity
         style={styles.heartButton}
-        onPress={() => onToggleWishlist(id)}
+        onPress={onToggleWishlist}
         activeOpacity={0.7}
       >
-        <Text style={styles.heartIcon}>{isWishlisted ? "❤️" : "🤍"}</Text>
+        <Text style={styles.heartIcon}>
+          {isWishlisted ? "❤️" : "🤍"}
+        </Text>
       </TouchableOpacity>
 
       {/* Image */}
@@ -49,13 +55,39 @@ export default function ProductCard({
         <Text style={styles.desc}>{desc}</Text>
 
         <Text style={styles.who}>
-          <Text style={styles.bold}>Who is it for:</Text> Suitable for all skin
-          types, 16+ years old.
+          <Text style={styles.bold}>Who is it for:</Text>{" "}
+          Suitable for all skin types, 16+ years old.
         </Text>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Add to Cart</Text>
-        </TouchableOpacity>
+        {/* Cart Controls */}
+        {cartQuantity === 0 ? (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={onAddToCart}
+          >
+            <Text style={styles.buttonText}>Add to Cart</Text>
+          </TouchableOpacity>
+        ) : (
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity
+              style={styles.quantityButton}
+              onPress={onRemoveFromCart}
+            >
+              <Text style={styles.quantityButtonText}>-</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.quantityText}>
+              {cartQuantity}
+            </Text>
+
+            <TouchableOpacity
+              style={styles.quantityButton}
+              onPress={onAddToCart}
+            >
+              <Text style={styles.quantityButtonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -72,7 +104,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 10,
     marginBottom: 100,
-    position: "relative",
   },
 
   heartButton: {
@@ -80,15 +111,12 @@ const styles = StyleSheet.create({
     top: 12,
     right: 12,
     zIndex: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    backgroundColor: "rgba(255,255,255,0.9)",
     borderRadius: 20,
     width: 36,
     height: 36,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
     elevation: 2,
   },
 
@@ -100,7 +128,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 180,
     backgroundColor: "#F9F9F9",
-    borderRadius: 20,
   },
 
   content: {
@@ -130,15 +157,48 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#FFD6CC",
+    backgroundColor: "#111111",
     paddingVertical: 12,
     borderRadius: 12,
     alignItems: "center",
   },
 
   buttonText: {
-    color: "#FF5A3C",
+    color: "white",
     fontWeight: "600",
     fontSize: 15,
+  },
+
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F3F3F3",
+    borderRadius: 12,
+    paddingVertical: 8,
+  },
+
+  quantityButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    backgroundColor: "#111111",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  quantityButtonText: {
+    color: "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "700",
+  },
+
+  quantityText: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#111111",
+    marginHorizontal: 24,
+    minWidth: 30,
+    textAlign: "center",
   },
 });

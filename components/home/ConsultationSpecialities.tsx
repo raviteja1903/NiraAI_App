@@ -54,7 +54,7 @@ export default function ConsultationSpecialities() {
         </TouchableOpacity>
       </View>
 
-      {/* SPECIALITIES */}
+      
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -93,19 +93,19 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#000000", // black
+    color: "#000000", 
     marginBottom: 6,
   },
 
   subHeading: {
     fontSize: 14,
-    color: "#444444", // dark gray
+    color: "#444444",  
     lineHeight: 20,
   },
 
   viewAllBtn: {
     borderWidth: 1,
-    borderColor: "#000000", // black border
+    borderColor: "#000000",  
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 8,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 45,
-    backgroundColor: "#F2F2F2", // light gray
+    backgroundColor: "#F2F2F2",  
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 12,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "500",
     textAlign: "center",
-    color: "#000000", // black
+    color: "#000000",  
     marginBottom: 6,
   },
 

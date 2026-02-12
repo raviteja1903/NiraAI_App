@@ -94,7 +94,7 @@ export default function SkincareScreen() {
       <Header />
 
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-        {/* Categories */}
+      
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -118,10 +118,10 @@ export default function SkincareScreen() {
           )}
         />
 
-        {/* Skincare Section */}
+ 
         <View style={styles.section}>
           <ImageBackground
-            source={require("../../assets/images/SkinCareIMG.jpeg")}
+            source={require("../../assets/images/SkinCareIMG2.png")}
             style={styles.sectionBg}
             imageStyle={styles.sectionBgImage}
           >
@@ -150,14 +150,14 @@ export default function SkincareScreen() {
           </ImageBackground>
         </View>
 
-        {/* Makeup Section */}
+    
         <View style={styles.section}>
           <ImageBackground
             source={require("../../assets/images/hydrationIMG.jpeg")}
             style={styles.sectionBg}
             imageStyle={styles.sectionBgImage}
           >
-            <Text style={styles.sectionTitle}>Hydra</Text>
+            <Text style={styles.sectionTitle}>Hydration</Text>
 
             <FlatList
               horizontal
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-  // Category styles
+   
   categoryList: {
     paddingHorizontal: 12,
     paddingVertical: 16,
@@ -224,8 +224,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "capitalize",
   },
-
-  // Section styles
+ 
   section: {
     marginHorizontal: 12,
     marginBottom: 20,
@@ -247,7 +246,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
 
-  // Product styles
+ 
   productList: {
     paddingRight: 16,
   },

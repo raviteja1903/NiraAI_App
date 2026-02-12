@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import BottomNav from "@/components/home/BottomNav";
-import Header from "@/components/home/Header";
+
 
 export default function BookAppointmentScreen() {
   const { doctorName, day, time } = useLocalSearchParams<{

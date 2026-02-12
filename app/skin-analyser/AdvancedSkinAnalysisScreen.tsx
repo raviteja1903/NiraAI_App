@@ -33,7 +33,7 @@ export default function AdvancedSkinAnalysisScreen() {
         <Text style={styles.buttonText}>Start Now</Text>
       </TouchableOpacity>
 
-      {/* STEP 1 */}
+      
       <View style={styles.stepCard}>
         <Image
           source={require("../../assets/images/step1.avif")}
@@ -48,7 +48,7 @@ export default function AdvancedSkinAnalysisScreen() {
         </View>
       </View>
 
-      {/* STEP 2 */}
+     
       <View style={styles.stepCard}>
         <Image
           source={require("../../assets/images/step2.avif")}
@@ -63,7 +63,7 @@ export default function AdvancedSkinAnalysisScreen() {
         </View>
       </View>
 
-      {/* STEP 3 */}
+      
       <View style={styles.stepCard}>
         <Image
           source={require("../../assets/images/step3.avif")}

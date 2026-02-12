@@ -75,7 +75,7 @@ export default function DoctorChatScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
       >
-        {/* Header */}
+         
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name="chevron-back" size={24} />
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7F7F8",
   },
 
-  /* HEADER */
+   
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
 
   status: {
     fontSize: 12,
-    color: "#10A37F", // ChatGPT green
+    color: "#10A37F",  
     marginTop: 2,
   },
 
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     gap: 14,
   },
 
-  /* MESSAGE LIST */
+  
   messageContainer: {
     marginVertical: 6,
     flexDirection: "row",
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
 
-  /* INPUT BAR */
+  
   inputRow: {
     flexDirection: "row",
     alignItems: "center",

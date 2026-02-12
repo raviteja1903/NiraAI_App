@@ -1,7 +1,8 @@
 import BottomNav from "@/components/home/BottomNav";
 import Header from "@/components/home/Header";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import React from "react";
+
 import {
   Dimensions,
   Image,
@@ -17,6 +18,7 @@ import AiPoweredSkinAnalysisScreen from "./AiPoweredSkinAnalysisScreen";
 import HowAIWorksScreen from "./HowAIWorksScreen";
 
 const { width } = Dimensions.get("window");
+const router = useRouter();
 
 export default function SkinInsightsScreen() {
   return (
@@ -43,7 +45,11 @@ export default function SkinInsightsScreen() {
               />
             </View>
 
-            <TouchableOpacity activeOpacity={0.85} style={styles.button}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={styles.button}
+              onPress={() => router.push("/skin-analysisCare")}  
+            >
               <Text style={styles.buttonText}>Start Now</Text>
             </TouchableOpacity>
           </View>

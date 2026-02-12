@@ -13,8 +13,6 @@ import {
   View,
 } from "react-native";
 
-/* ================= TYPES ================= */
-
 type Category = "Skin Care" | "Nutrition" | "Hydration";
 
 type Expert = {
@@ -26,8 +24,6 @@ type Expert = {
   image: string;
   icon: keyof typeof Ionicons.glyphMap;
 };
-
-/* ================= DATA ================= */
 
 const experts: Expert[] = [
   {

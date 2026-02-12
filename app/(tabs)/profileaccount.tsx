@@ -9,12 +9,12 @@ export default function ProfileScreen() {
   return (
     <>
       <SafeAreaView style={styles.safe}>
-        {/* HEADER */}
+        
         <View style={styles.header}>
           <Text style={styles.headerTitle}>My Profile</Text>
         </View>
 
-        {/* AVATAR */}
+      
         <View style={styles.avatarContainer}>
           <Image
             source={{
@@ -22,8 +22,8 @@ export default function ProfileScreen() {
             }}
             style={styles.avatar}
           />
-          <Text style={styles.name}>John Doe</Text>
-          <Text style={styles.email}>johndoe@example.com</Text>
+          <Text style={styles.name}>Ravi Teja</Text>
+          <Text style={styles.email}>RaviTeja@example.com</Text>
         </View>
 
         <View style={styles.balanceBox}>
@@ -54,15 +54,22 @@ export default function ProfileScreen() {
             <Text style={styles.optionText}>Wallet & Rewards</Text>
             <Ionicons name="chevron-forward-outline" size={18} color="#999" />
           </TouchableOpacity>
-
-          {/* 🆕 ENCRYPTION */}
+          <TouchableOpacity
+            style={styles.optionBtn}
+            onPress={() => router.push("/orders")}
+          >
+            <Ionicons name="receipt-outline" size={20} color="#000" />
+            <Text style={styles.optionText}>My Orders</Text>
+            <Ionicons name="chevron-forward-outline" size={18} color="#999" />
+          </TouchableOpacity>
+        
           <TouchableOpacity style={styles.optionBtn}>
             <Ionicons name="lock-closed-outline" size={20} color="#000" />
             <Text style={styles.optionText}>Encryption</Text>
             <Ionicons name="chevron-forward-outline" size={18} color="#999" />
           </TouchableOpacity>
 
-          {/* 🆕 REFER A FRIEND */}
+         
           <TouchableOpacity style={styles.optionBtn}>
             <Ionicons name="people-outline" size={20} color="#000" />
             <Text style={styles.optionText}>Refer a Friend</Text>
@@ -128,11 +135,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: "#ddd",
   },
-bitcoinIcon: {
-  width: 50,
-  height: 50,
-  resizeMode: "contain",
-},
+  bitcoinIcon: {
+    width: 50,
+    height: 50,
+    resizeMode: "contain",
+  },
 
   name: {
     fontSize: 20,

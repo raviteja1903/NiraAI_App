@@ -66,7 +66,7 @@ export default function LiveChatScreen() {
           </View>
         </View>
 
-        {/* ================= CHAT LIST ================= */}
+      
         <FlatList
           data={messages}
           keyExtractor={(item) => item.id}
@@ -84,7 +84,7 @@ export default function LiveChatScreen() {
                     : { justifyContent: "flex-start" },
                 ]}
               >
-                {/* Agent Avatar */}
+              
                 {!isUser && (
                   <Image
                     source={require("../../assets/images/consumerCare.png")}
@@ -92,7 +92,7 @@ export default function LiveChatScreen() {
                   />
                 )}
 
-                {/* Message Bubble */}
+                
                 <View
                   style={[
                     styles.messageBubble,
@@ -107,7 +107,7 @@ export default function LiveChatScreen() {
                   <Text style={styles.time}>{item.time}</Text>
                 </View>
 
-                {/* User Avatar */}
+               
                 {isUser && (
                   <Image
                     source={{
@@ -121,7 +121,7 @@ export default function LiveChatScreen() {
           }}
         />
 
-        {/* ================= INPUT ================= */}
+       
         <View style={styles.inputRow}>
           <TextInput
             placeholder="Type your message..."
@@ -140,7 +140,7 @@ export default function LiveChatScreen() {
   );
 }
 
-/* ================= STYLES ================= */
+ 
 
 const styles = StyleSheet.create({
   safe: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  /* HEADER */
+   
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  /* CHAT */
+   
   chatArea: {
     padding: 14,
     paddingBottom: 20,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
 
-  /* INPUT */
+  
   inputRow: {
     flexDirection: "row",
     alignItems: "center",

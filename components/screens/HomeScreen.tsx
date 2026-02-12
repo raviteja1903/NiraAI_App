@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
+
 import AICard from "../home/AICard";
 import BottomNav from "../home/BottomNav";
 import DecentralizationSection from "../home/DecentralizationSection";
@@ -14,6 +15,7 @@ import SkinInsightsSection from "../home/SkinInsightsSection";
 export default function HomeScreen() {
   return (
     <View style={styles.wrapper}>
+    
       <Header />
 
       <ScrollView
@@ -23,16 +25,19 @@ export default function HomeScreen() {
         <ShopByCategory />
         <AICard />
         <DecentralizationSection />
+
         <View style={{ marginTop: 24 }}>
           <SkinInsightsSection />
         </View>
 
         <DoctorReferences />
-
         <ShopByConcern />
         <HydrationSection />
+
+    
         <ProductList />
       </ScrollView>
+
       <BottomNav />
     </View>
   );

@@ -43,7 +43,7 @@ export default function AiPoweredSkinAnalysisScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* HOW TO TAKE PICTURE */}
+     
       <View style={styles.section}>
         <Text style={styles.headingCenter}>
           How to take your picture{"\n"}for skin analysis?
@@ -74,7 +74,7 @@ export default function AiPoweredSkinAnalysisScreen() {
   );
 }
 
-/* STEP CARD */
+ 
 function StepCard({ step, title, desc, image }: any) {
   return (
     <View style={styles.stepCard}>
@@ -88,8 +88,7 @@ function StepCard({ step, title, desc, image }: any) {
     </View>
   );
 }
-
-/* STYLES */
+ 
 const styles = StyleSheet.create({
   section: {
     backgroundColor: "#FFF",

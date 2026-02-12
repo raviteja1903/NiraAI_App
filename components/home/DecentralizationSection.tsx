@@ -1,4 +1,3 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -122,8 +121,8 @@ const DecentralizationSection = () => {
           duration: 100,
           useNativeDriver: true,
         }),
-        Animated.delay(2000), // Pause between shakes
-      ])
+        Animated.delay(2000),
+      ]),
     );
 
     shakeAnimation.start();
@@ -175,7 +174,6 @@ const DecentralizationSection = () => {
         onPressOut={onCardPressOut}
       >
         <Animated.View style={[styles.card, { transform: [{ scale }] }]}>
-          {/* IMAGE */}
           <Animated.View
             style={{
               transform: [{ translateX }],
@@ -189,15 +187,13 @@ const DecentralizationSection = () => {
             />
           </Animated.View>
 
-          {/* TEXT */}
           <View style={styles.textContainer}>
             <Text style={styles.title}>{slides[index].title}</Text>
             <Text style={styles.caption}>{slides[index].caption}</Text>
             <Text style={styles.micro}>{slides[index].micro}</Text>
 
-            {/* READ MORE BUTTON */}
             <Pressable
-              onPress={handleReadMore}
+              onPress={() => router.push("/(tabs)/decentralization-docs")}
               onPressIn={onButtonPressIn}
               onPressOut={onButtonPressOut}
               style={styles.buttonWrapper}
@@ -209,6 +205,7 @@ const DecentralizationSection = () => {
                 ]}
               >
                 <Text style={styles.buttonText}>Read More</Text>
+
                 <Animated.Text
                   style={[
                     styles.arrow,
@@ -227,8 +224,6 @@ const DecentralizationSection = () => {
 };
 
 export default DecentralizationSection;
-
-/* ================= STYLES ================= */
 
 const styles = StyleSheet.create({
   wrapper: {

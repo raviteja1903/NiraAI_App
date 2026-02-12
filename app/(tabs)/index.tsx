@@ -39,7 +39,7 @@ export default function OnboardingScreen() {
            
             <Text style={styles.title}>Personalized</Text>
 
-            {/* AI Powered Row */}
+         
             <View style={styles.aiRow}>
               <Image
                 source={require("../../assets/images/nira-appLOGO.png")}
@@ -60,10 +60,9 @@ export default function OnboardingScreen() {
                 onPress={() => router.replace("/(tabs)/home")}
                 style={styles.blurButton}
               >
-                {/* Text */}
+           
                 <Text style={styles.getStartedText}>Get Started</Text>
-
-                {/* Right Arrow */}
+ 
                 <View style={styles.rightIcon}>
                   <Text style={styles.rightArrow}>›</Text>
                 </View>
